@@ -1,6 +1,6 @@
 # Chapter 4: Ownership
 
-## Moves
+## Moves - Basic Ideas
 
 We have a Rust code here that wants to understand what exactly Rust means by "Moving Ownership"
 
@@ -57,6 +57,35 @@ This is clearly illustrated in this diagram.
 
 The main consequence here is that the assignment are cheap.
 
+**Source Code:** `move_ownership/`
+
 ### Rule in Ownership
 - There's one owner at a time.
 - When the owner goes out of scope, the memory referenced by that owner becomes uninitialized. You cannot access it any longer.
+
+## Moves - Move Operations that Moves
+
+Again, we have a rust code here
+```rust
+let mut s0 = "Corgi";
+let s1 = s0;
+s0 = "Beagle";
+```
+
+Which produces the heap/stack address in this manner
+```bash
+heap_s0 = 0x562398b0d05b
+stack_s0 = 0x7ffc134c3ec0
+heap_s1 = 0x562398b0d05b
+stack_s1 = 0x7ffc134c3f58
+heap_s0 = 0x562398b0d08b
+stack_s0 = 0x7ffc134c3ec0
+```
+- This shows that we can reinitialize previously freed variables to something new. As long that particular value is mutable.
+
+**Source Code:** `move_and_move/`
+
+### Key Insights from the Previous Examples
+- First, the moves always apply to the value proper, not the heap storage.
+- Second, the Rust compiler's code generation is good at "seeing through" all these moves; in practice the machine code often stores the value directly where it belongs.
+
