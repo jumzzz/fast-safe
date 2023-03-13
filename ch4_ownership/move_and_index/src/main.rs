@@ -1,3 +1,5 @@
+use std::borrow::Borrow;
+
 fn main() {
     let x0 = vec![
         String::from("Corgi"), 
@@ -17,6 +19,6 @@ fn main() {
 
     let y0 = Box::new(5);
     let y1 = &y0;
-    let _y2 = *y1;      // You cannot move out of shared reference
+    let _y2 = y0.borrow();
 
 }
