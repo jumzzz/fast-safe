@@ -88,4 +88,40 @@ stack_s0 = 0x7ffc134c3ec0
 ### Key Insights from the Previous Examples
 - First, the moves always apply to the value proper, not the heap storage.
 - Second, the Rust compiler's code generation is good at "seeing through" all these moves; in practice the machine code often stores the value directly where it belongs.
+- Direct assignment does trigger moves. To prevent unintended moves, we can definitely "Borrow" instead of moving.
 
+### Moves and Indexed Content
+
+```rust
+let x0 = vec![1,2,3,4,5,6];
+
+let v0 = x0[0];        // Warning: x0[0] values are now moved
+let v1 = x0[1];        // Warning: x0[1] values are now moved
+
+println!("v0 = {}", v0);
+println!("v1 = {}", v1);
+
+// This won't compile
+println!("x0[0] = {}", x0[0]);
+println!("x0[1] = {}", x0[1]);
+```
+
+The Solution for this is straightforward
+
+```rust
+let x0 = vec![1,2,3,4,5,6];
+
+let v0 = &x0[0];        // Borrow &x0[0] instead of assignment/moving
+let v1 = &x0[1];        // Borrow &x0[1] instead of assignment/moving
+
+println!("v0 = {}", v0);
+println!("v1 = {}", v1);
+
+// This will now compile
+println!("x0[0] = {}", x0[0]);
+println!("x0[1] = {}", x0[1]);
+```
+
+Again, this forces us to pay attention on Moving/Borrowing. In this manner, the proper way of allocating resources are enforced by the compiler. 
+
+**Source Code:** `move_and_index/`
