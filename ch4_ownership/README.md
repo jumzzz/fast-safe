@@ -153,9 +153,16 @@ To answer my question above, the answer is yes, you can move a child outside of 
 
 **The Main Answer:**
 - `Vec<T>` index returns a reference. Therefore, you cannot force a move. And since `=` implies moving or `Copy` if it has a `Copy` trait, hence you cannot move it.
-- Hence, you cannot move a Borrowed value.
+- Hence, you cannot move a Borrowed value or a Shared-Reference.
 
+This is equivalent to this piece of code
+```rust
+let y0 = Box::new(5);
+let y1 = &y0;
+let _y2 = *y1;      // You cannot move out of shared reference
+```
 
+One thing that's implicitly hidden with the user is when you use `[]` in a Vector, it automatically inserts a dereference for you. This is seemingly confusing but it really needs some careful attention to detail.
 
 
 ## Additional Homework

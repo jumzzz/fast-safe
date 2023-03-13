@@ -15,4 +15,8 @@ fn main() {
     println!("x0[0] = {}", x0[0]);
     println!("x0[1] = {}", x0[1]);
 
+    let y0 = Box::new(5);
+    let y1 = &y0;
+    let _y2 = *y1;      // You cannot move out of shared reference
+
 }
