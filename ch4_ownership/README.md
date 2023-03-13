@@ -141,39 +141,48 @@ This begs a question though. Can you move a child outside of any parent aside fr
 ### Moves and Struct Members
 
 ```rust
-let dog = Dog {
-    name: String::from("Corgi"),
-    physique: String::from("Short"),
-};
+// This will not compile
+struct Dog {
+    name: &str,
+    physique: &str,
+}
 
-let _name = dog.name;               // Moves from dog.name -> _name
-let _physique = dog.physique;       // Moves from dog.physique -> _physique
+fn main() {
+    let dog = Dog {
+        name: "Corgi",
+        physique: "Short",
+    };
+
+    let _name = dog.name;               // Moves from dog.name -> _name
+    let _physique = dog.physique;       // Moves from dog.physique -> _physique
+
+}
 ```
-To answer my question above, the answer is yes, you can move a child outside of parent's ownership. Which implies a different thing from the `Vec<T>` index standpoint. This implies that there's something on `Vec<T>` indices that are enforced such that moving from index to external variable is not allowed. Let's look on `Vec<T>` actual source code.
+- Answer is no. You cannot without certain restrictions. This is because messing with the hierarchy of ownership (i.e. Moving from outside the scope) will expose Rust to dangling pointers. Whenever the Rust compiler detects moving data from inner to outside of the scope, it will become defensive because it cannot infer when to place its destructor since it assumes that there's one owner at a time.
+- A Workaround with this is you have to annotate its lifetimes with lifetime parameter.
 
-**The Main Answer: First Principle Based Answer**
-When you do this
 ```rust
-let v = vec![Box::new(5), Box::new(3), Box::new(2),];
-let vv = v[0];      // The value of v[0] was moved here
+
+struct Dog<'a> {
+    name: &'a str,                      // ensures the name is always owned by Dog struct
+    physique: &'a str,                  // ensures the physique is always owned by Dog struct
+}
+
+fn main() {
+    let dog = Dog {
+        name: "Corgi",
+        physique: "Short",
+    };
+
+    let _name = dog.name;               // Moves from dog.name -> _name
+    let _physique = dog.physique;       // Moves from dog.physique -> _physique
+
+    println!("dog.name = {:p}", dog.name);
+    println!("_name = {:p}", dog.name);
+}
+
 ```
-But this is problematic for one subtle reason. Since `Vec<T>` will have to drop all its element when it gets deallocated. If the compiler allows this, this will result to a double-free like in C/C++.
-
-
-**A More Confusing Answer**
-- `Vec<T>` index returns a reference. Therefore, you cannot force a move. And since `=` implies moving or `Copy` if it has a `Copy` trait, hence you cannot move it.
-- Hence, you cannot move a Borrowed value or a Shared-Reference.
-
-This is equivalent to this piece of code
-```rust
-let y0 = Box::new(5);
-let y1 = &y0;
-let _y2 = y0.borrow();          // You cannot move out of borrow context
-let _y3 = *y1;                  // You cannot dereference a shared-reference
-```
-
-One thing that's implicitly hidden with the user is when you use `[]` in a Vector, it automatically inserts a dereference for you. This is seemingly confusing but it really needs some careful attention to detail.
-
-
+- This should be discussed more clearly on the next chapter. For now, I'll avoid overthinking this.
 ## Additional Homework
+- Understand Ownership Hierarchies.
 - Investigate `std::mem`

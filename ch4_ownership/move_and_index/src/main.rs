@@ -7,9 +7,9 @@ fn main() {
         String::from("Daschund")
     ];
 
-    let v0 = &x0[0];
-    let v1 = &x0[1];
+    let v0 = x0[0];
 
+    let v1 = &x0[1];
     println!("v0 = {}", v0);
     println!("v1 = {}", v1);
 
