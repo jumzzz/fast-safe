@@ -2,14 +2,22 @@ fn main() {
     println!("Moving Heap values by assignment to heap_v0, heap_v1, heap_v2, and heap_v3");
     let heap_v0 = Box::new(5);
     println!("heap_addr_v0 = {:p}", heap_v0);
+    println!("stack_addr_v0 = {:p}\n", &heap_v0);
+
     let heap_v1 = heap_v0;
     println!("heap_addr_v1 = {:p}", heap_v1);
+    println!("stack_addr_v1 = {:p}\n", &heap_v1);
+
     let heap_v2 = heap_v1;
     println!("heap_addr_v2 = {:p}", heap_v2);
+    println!("stack_addr_v2 = {:p}\n", &heap_v2);
+
     let heap_v3 = heap_v2;
     println!("heap_addr_v3 = {:p}", heap_v3);
+    println!("stack_addr_v3 = {:p}\n", &heap_v3);
 
-    println!("...");
+    println!("...\n");
+
 
     let x0: u64 = 5;
     let x1: u64 = 10;
