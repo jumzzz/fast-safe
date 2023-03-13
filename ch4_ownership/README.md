@@ -138,6 +138,26 @@ This begs a question though. Can you move a child outside of any parent aside fr
 
 **Source Code:** `move_and_index/`
 
+### Moves and Struct Members
+
+```rust
+let dog = Dog {
+    name: String::from("Corgi"),
+    physique: String::from("Short"),
+};
+
+let _name = dog.name;               // Moves from dog.name -> _name
+let _physique = dog.physique;       // Moves from dog.physique -> _physique
+```
+To answer my question above, the answer is yes, you can move a child outside of parent's ownership. Which implies a different thing from the `Vec<T>` index standpoint. This implies that there's something on `Vec<T>` indices that are enforced such that moving from index to external variable is not allowed. Let's look on `Vec<T>` actual source code.
+
+**The Main Answer:**
+- `Vec<T>` index returns a reference. Therefore, you cannot force a move. And since `=` implies moving or `Copy` if it has a `Copy` trait, hence you cannot move it.
+
+
+
+
+
 
 ## Additional Homework
 - Investigate `std::mem`
