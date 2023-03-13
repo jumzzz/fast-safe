@@ -93,10 +93,36 @@ stack_s0 = 0x7ffc134c3ec0
 ### Moves and Indexed Content
 
 ```rust
-let x0 = vec![1,2,3,4,5,6];
+let x0 = vec![
+    String::from("Corgi"), 
+    String::from("Beagle"), 
+    String::from("Daschund")
+];
 
-let v0 = x0[0];        // Warning: x0[0] values are now moved
-let v1 = x0[1];        // Warning: x0[1] values are now moved
+let v0 = x0[0];    // This is illegal: you cannot move out of index
+let v1 = x0[1];    // This is illegal: you cannot move out of index
+
+println!("v0 = {}", v0);
+println!("v1 = {}", v1);
+
+// This won't compile
+println!("x0[0] = {}", x0[0]);
+println!("x0[1] = {}", x0[1]);
+
+```
+This elicits `error[E0507]: cannot move out of index of Vec<String>`
+
+The Solution for this is straightforward
+
+```rust
+let x0 = vec![
+    String::from("Corgi"), 
+    String::from("Beagle"), 
+    String::from("Daschund")
+];
+
+let v0 = &x0[0];    // Borrow &x0[0] instead of move
+let v1 = &x0[1];    // Borrow &x0[1] instead of move
 
 println!("v0 = {}", v0);
 println!("v1 = {}", v1);
@@ -106,22 +132,12 @@ println!("x0[0] = {}", x0[0]);
 println!("x0[1] = {}", x0[1]);
 ```
 
-The Solution for this is straightforward
-
-```rust
-let x0 = vec![1,2,3,4,5,6];
-
-let v0 = &x0[0];        // Borrow &x0[0] instead of assignment/moving
-let v1 = &x0[1];        // Borrow &x0[1] instead of assignment/moving
-
-println!("v0 = {}", v0);
-println!("v1 = {}", v1);
-
-// This will now compile
-println!("x0[0] = {}", x0[0]);
-println!("x0[1] = {}", x0[1]);
-```
-
 Again, this forces us to pay attention on Moving/Borrowing. In this manner, the proper way of allocating resources are enforced by the compiler. 
 
+This begs a question though. Can you move a child outside of any parent aside from `Vec<T>`?
+
 **Source Code:** `move_and_index/`
+
+
+## Additional Homework
+- Investigate `std::mem`

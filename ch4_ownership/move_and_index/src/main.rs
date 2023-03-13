@@ -1,5 +1,9 @@
 fn main() {
-    let x0 = vec![1,2,3,4,5,6];
+    let x0 = vec![
+        String::from("Corgi"), 
+        String::from("Beagle"), 
+        String::from("Daschund")
+    ];
 
     let v0 = &x0[0];
     let v1 = &x0[1];
