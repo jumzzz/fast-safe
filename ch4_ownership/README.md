@@ -153,8 +153,7 @@ To answer my question above, the answer is yes, you can move a child outside of 
 
 **The Main Answer:**
 - `Vec<T>` index returns a reference. Therefore, you cannot force a move. And since `=` implies moving or `Copy` if it has a `Copy` trait, hence you cannot move it.
-
-
+- Hence, you cannot move a Borrowed value.
 
 
 
