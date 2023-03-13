@@ -55,6 +55,7 @@ This is clearly illustrated in this diagram.
 
 ![What happens to move](data/ownership.png)
 
+The main consequence here is that the assignment are cheap.
 
 ### Rule in Ownership
 - There's one owner at a time.
