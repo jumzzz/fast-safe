@@ -151,7 +151,16 @@ let _physique = dog.physique;       // Moves from dog.physique -> _physique
 ```
 To answer my question above, the answer is yes, you can move a child outside of parent's ownership. Which implies a different thing from the `Vec<T>` index standpoint. This implies that there's something on `Vec<T>` indices that are enforced such that moving from index to external variable is not allowed. Let's look on `Vec<T>` actual source code.
 
-**The Main Answer:**
+**The Main Answer: First Principle Based Answer**
+When you do this
+```rust
+let v = vec![Box::new(5), Box::new(3), Box::new(2),];
+let vv = v[0];      // The value of v[0] was moved here
+```
+But this is problematic for one subtle reason. Since `Vec<T>` will have to drop all its element when it gets deallocated. If the compiler allows this, this will result to a double-free like in C/C++.
+
+
+**A More Confusing Answer**
 - `Vec<T>` index returns a reference. Therefore, you cannot force a move. And since `=` implies moving or `Copy` if it has a `Copy` trait, hence you cannot move it.
 - Hence, you cannot move a Borrowed value or a Shared-Reference.
 
