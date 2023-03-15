@@ -11,7 +11,6 @@ fn main() {
     println!("v1 = {:?}", &v);
     println!("fifth = {:?}\n", fifth);
 
-
     let second = v.swap_remove(1);
     println!("after v.swap_remove(1)");
     println!("v2 = {:?}", &v);
@@ -21,5 +20,14 @@ fn main() {
     println!("after std::mem::replace(&mut v[2], \"substitute\".to_string())");
     println!("v3 = {:?}", &v);
     println!("third = {:?}", third);
+
+    let x = vec!["1", "2", "3", "4"];
+
+    // This needs &x
+    for xx in &x {
+        println!("{}", xx);
+    }
+
+    println!("{:?}", &x);
 
 }
