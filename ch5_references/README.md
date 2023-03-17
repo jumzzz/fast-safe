@@ -29,3 +29,7 @@ fn sort_vec(target_vec: &mut Vec<u8>){
     ...
 }
 ```
+
+### Additional Homework
+- Read further on ways Rust can be implicit in **dereferencing references**.
+- Does dereferencing transfer ownership?

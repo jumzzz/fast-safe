@@ -4,7 +4,9 @@
 - Does Dereferencing Transfer Ownership?
 
 ### Answer
-- No. Explicit assignment doesn't transfer ownership.
+- Yes, but you have to be very explicit if you want to.
+- In case of the likes of `print!` it doesn't do it if you perform dereferencing.
+- In case of the explicit assignments, like `let y_src = *x_ref`, moves happens.
 
 In this code, **No Transfer of Ownership Happens on Line 11 and Line 12**
 ```rust
@@ -36,10 +38,10 @@ fn main() {
     let x_src = Nice {x: 5, y: 5}; 
     let x_ref = &x_src;
 
-    println!("{:?}", *x_ref);
+    println!("{:?}", *x_ref);      // For some reason this does not implicitly perform move
     println!("{:?}", *x_ref);
 
     // Move happens here but this won't compile since moving x_src cannot outlive x_ref
     // If x_ref can outlive x_src, x_ref will become a dangling pointer.
-    let y_src = x_ref;      // rustc --explain E0505
+    let y_src = *x_ref;      // rustc --explain E0505
 }
