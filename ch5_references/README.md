@@ -45,7 +45,6 @@ fn main() {
 
     // Implicit Dereferencing Happens here as well
     println!("{}", nice_ref.y);
-
 }
 
 ```
