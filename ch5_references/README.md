@@ -30,6 +30,26 @@ fn sort_vec(target_vec: &mut Vec<u8>){
 }
 ```
 
+### On Implicit Dereferences
+Let say you have the following code
+
+```rust
+struct Nice {x: u8, y: u8};
+
+fn main() {
+    let nice = Nice {x: 2, y:3};
+    let nice_ref = &nice;
+
+    // Implicit Dereferencing Happens here
+    println!("{}", nice_ref.x);
+
+    // Implicit Dereferencing Happens here as well
+    println!("{}", nice_ref.y);
+
+}
+
+```
+
 ### Additional Homework
 - Read further on ways Rust can be implicit in **dereferencing references**.
 - Does dereferencing transfer ownership?
