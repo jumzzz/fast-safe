@@ -28,8 +28,6 @@ Its **Multiple Reader/Single Writer** rule at a compile time. Also, **References
 - References are never null. And attempts to do so will result to a compilation error -- unless you explicitly converted an integer to references within the `unsafe` code.
 
 
-
-
 **Without Side Effects**
 ```rust
 fn sort_vec(target_vec: &Vec<u8>) {
