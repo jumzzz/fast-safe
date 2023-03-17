@@ -12,8 +12,8 @@ fn main() {
     println!("{:?}", *x_ref);
 
     // Meanwhile this transfer ownership
-    let y_src = x_src;
+    // let y_src = *x_ref;
     
-    println!("{:?}", *x_ref);
-    println!("{:?}", *x_ref);
+    // println!("{:?}", *x_ref);
+    // println!("{:?}", *x_ref);
 }
