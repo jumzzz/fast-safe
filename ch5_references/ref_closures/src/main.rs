@@ -6,6 +6,9 @@ fn factorial(n: usize) -> usize {
 }
 
 fn main() {
+    let v = factorial(5);
+    println!("v = {}", &v + &5);
+
     let r = &factorial(6);
     assert_eq!(r + &1009, 1729);
 }
