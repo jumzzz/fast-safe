@@ -14,7 +14,8 @@ Its **Multiple Reader/Single Writer** rule at a compile time. Also, **References
 
 ### Personal Comments
 - Rust is pretty explicit on how you indicate passing by references and passing by value. This forces the programmer to pay more attention on how data was being moved. This is not so clear in higher languages like Python.
-- Also, indicating a difference between shared references VS mutable references makes it more natural to guard against unintended side-effects like the following code snippet
+- Also, indicating a difference between shared references VS mutable references makes it more natural to guard against unintended side-effects like the following code snippet.
+- References are never null. And attempts to do so will result to a compilation error -- unless you explicitly converted an integer to references within the `unsafe` code.
 
 **Without Side Effects**
 ```rust
