@@ -8,3 +8,5 @@
 2. **Mutable Reference/Exclusive Reference**
 - Lets you to both read/write its referent.
 - You're only allowed to have one Exclusive Reference at a time.
+
+Its **Multiple Reader/Single Writer** rule at a compile time. Also, **References are nonowning pointers**.
