@@ -15,5 +15,4 @@ fn main() {
     let r = &factorial(6);
     assert_eq!(r + &1009, 1729);
 }
-
 ```
