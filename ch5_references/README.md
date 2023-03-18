@@ -32,6 +32,10 @@ fn f<'a>(p: &'a i32) { ... }
 ### On Static Lifetimes
 - If we are taking mutable static references as an argument in a function, we must ensure that we annotate it with `'static` lifetime parameter, to ensure that the referant will not be outlived when the scope ends.
 
+### Further Reitaration on Lifetimes
+- The rule of thumb is that reference must not outlive the referant. If you're returning a reference from within a certain scope like vector elements or a member of the struct and you want to ensure that the lifetime within that scope was preserved -- you can explicitly annotate that particular lifetime with `'a`.
+
+
 ### Personal Comments
 - Rust is pretty explicit on how you indicate passing by references and passing by value. This forces the programmer to pay more attention on how data was being moved. This is not so clear in higher languages like Python.
 - Also, indicating a difference between shared references VS mutable references makes it more natural to guard against unintended side-effects like the following code snippet.
