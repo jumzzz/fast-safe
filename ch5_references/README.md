@@ -21,6 +21,16 @@ Its **Multiple Reader/Single Writer** rule at a compile time. Also, **References
 - Fat Pointers are special kind of pointers compared to simple addresses.
 - Fat Pointers contains the address as well as the length.
 
+### On Reading Lifetimes
+Let say we have a lifetime parameter `'a` which is read **tick A**
+```rust
+fn f<'a>(p: &'a i32) { ... }
+```
+- You can read `<'a>` as "for any lifetime `'a`"
+- We're defining a function that takse a reference to an `i32` with any given lifetime `'a`
+
+### On Static Lifetimes
+- If we are taking mutable static references as an argument in a function, we must ensure that we annotate it with `'static` lifetime parameter, to ensure that the referant will not be outlived when the scope ends.
 
 ### Personal Comments
 - Rust is pretty explicit on how you indicate passing by references and passing by value. This forces the programmer to pay more attention on how data was being moved. This is not so clear in higher languages like Python.
