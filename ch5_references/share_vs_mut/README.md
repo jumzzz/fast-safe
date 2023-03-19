@@ -45,3 +45,10 @@ For more information about this error, try `rustc --explain E0502`.
 error: could not compile `share_vs_mut` due to previous error
 ```
 In other words, **those two reference lifetimes must not overlap**.
+
+## Fundamental Rules Between Shared Reference VS Exclusive Reference
+**Shared access is read-only access**
+- There can be multiple Shared Reference but there can be no existing mutable access at the same time.
+
+**Mutable access is exclusive access**
+- There could be only one Mutable References. The only way that you can have multiple reference is to let others borrow that mutable access.
