@@ -64,3 +64,5 @@ fn main() {
 ```
 
 Making lifetime annotations for both `x` and `y` separate will let the compiler stop complaining. Hence, it can safely drop the ownership of y when it goes out of scope.
+
+With this definition, `z.x` and `z.y` have **independent lifetimes.**
