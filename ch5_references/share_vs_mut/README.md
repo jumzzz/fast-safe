@@ -52,3 +52,34 @@ In other words, **those two reference lifetimes must not overlap**.
 
 **Mutable access is exclusive access**
 - There could be only one Mutable References. The only way that you can have multiple reference is to let others borrow that mutable access.
+
+## Another example
+
+Here's another example that demonstrates that shared-reference VS exclusive-reference cannot exist simultaneously.
+
+```rust
+let mut x = 10;
+let r1 = &x;                // shared-reference borrow here
+let r2 = &x;                // shared-reference borrow here
+x += 10;                    // error: cannot borrow as mutable 
+let m = &mut x;             // error: cannot borrow as mutable
+println!("r1 = {}", r1);
+println!("r2 = {}", r2);
+```
+Which throws a following error.
+
+```bash
+error[E0506]: cannot assign to `x` because it is borrowed
+  --> src/main.rs:30:5
+   |
+28 |     let r1 = &x;                // shared-reference borrow here
+   |              -- borrow of `x` occurs here
+29 |     let r2 = &x;                // shared-reference borrow here
+30 |     x += 10;                    // error: cannot borrow as mutable 
+   |     ^^^^^^^ assignment to borrowed `x` occurs here
+31 |     let m = &mut x;             // error: cannot borrow as mutable
+32 |     println!("r1 = {}", r1);
+   |                         -- borrow later used here
+
+For more information about this error, try `rustc --explain E0506`.
+```

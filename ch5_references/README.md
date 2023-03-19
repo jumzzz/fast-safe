@@ -78,6 +78,12 @@ fn main() {
 
 ```
 
+### Concluding Remarks
+> Rust is all about transferring the pain of understanding your program from the future
+to the present. It works unreasonably well: not only can Rust force you to understand
+why your program is thread-safe, it can even require some amount of high-level
+architectural design.
+
 ### Additional Homework
 - Read further on ways Rust can be implicit in **dereferencing references**.
 - Does dereferencing transfer ownership?
