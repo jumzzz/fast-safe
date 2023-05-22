@@ -1,6 +1,5 @@
 fn main() {
     let vals = Vec::from_iter(1..=10);
-
     let mut total_sum = 0;
 
     for v in &vals {
