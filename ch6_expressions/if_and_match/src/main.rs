@@ -12,6 +12,7 @@ fn match_v1() {
     };
 }
 
+#[allow(dead_code)]
 enum Card {
     Jack,
     Queen,
@@ -19,6 +20,7 @@ enum Card {
     Ace,
 }
 
+#[allow(dead_code)]
 fn match_v2() {
     let card = vec![
         Card::Jack,
@@ -41,6 +43,17 @@ fn match_v2() {
     println!("score = {}", score);
 }
 
+#[allow(dead_code)]
+fn match_v3() {
+
+    let v = [true, false]; 
+
+    let best_sports_team = if *v.choose(&mut rand::thread_rng())
+                              .unwrap() { "Predators" } else { "Roar" };
+    println!("{}", best_sports_team );
+}
+
 fn main() {
-    match_v2();
+    // match_v2();
+    match_v3();
 }
